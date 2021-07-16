@@ -191,11 +191,20 @@ USE_TZ = True
 
 
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
+# # Static files (CSS, JavaScript, Images)
+# STATIC_URL = '/static/'
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'), # for UI language translations
 )
+
+AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT']
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_LOCATION='staticstagex' #This works well as the static location
+STATICFILES_STORAGE  = 'aho_datacapturetool.azurestorage.AzureStaticStorage'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+
+
+
 # Base url to serve media files
 
 # Set the diretory a path outside the project folder
@@ -207,8 +216,6 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'), # for UI language translation
 
 
 # Configurations for serving and uploading media into Azure Blob storage container
-AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT']
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 DEFAULT_FILE_STORAGE = 'aho_datacapturetool.azurestorage.AzureMediaStorage'
 AZURE_BLOB_MAX_MEMORY_SIZE = os.environ['BLOB_MAX_MEMORY_SIZE']
 
