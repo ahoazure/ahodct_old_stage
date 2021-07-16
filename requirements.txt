@@ -3,7 +3,7 @@ django-import-export
 djangorestframework
 djangorestframework-simplejwt
 django-admin-list-filter-dropdown
-django-rest-swagger]
+django-rest-swagger
 django-parler
 django-parler-rest
 django-modeladmin-reorder
