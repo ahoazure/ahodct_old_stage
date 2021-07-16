@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'django_admin_listfilter_dropdown',
 ]
 
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField' #Handles Django 3.2 primary key
+
 DATA_WIZARD = {
     'BACKEND': 'data_wizard.backends.threading',
     'LOADER': 'data_wizard.loaders.FileLoader',

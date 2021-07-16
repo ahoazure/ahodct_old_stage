@@ -237,7 +237,7 @@ class FactDataIndicator(models.Model):
         db_table = 'fact_data_indicators'
         verbose_name = _('Indicator Data Record')
         verbose_name_plural = _('    Single-record Form')
-        ordering = ('indicator__name',)
+        ordering = ('indicator__translations__name',)
 
     def __str__(self):
          return str(self.indicator)
@@ -432,7 +432,7 @@ class aho_factsindicator_archive(models.Model):
         db_table = 'fact_data_archive'
         verbose_name = _('Archive')
         verbose_name_plural = _('Indicators Archive')
-        ordering = ('indicator__name',)
+        ordering = ('indicator__translations__name',)
 
     def __str__(self):
          return str(self.indicator)

@@ -219,7 +219,7 @@ class StgHealthCadre(TranslatableModel):
             null=False),  # Field name made lowercase.
         shortname = models.CharField(_('Short Name'),max_length=230,blank=False,
             null=False),  # Field name made lowercase.
-        academic = models.CharField(_('Academic Qualification'),max_length=10,
+        academic = models.CharField(_('Academic Qualification'),max_length=12,
             choices= STATUS_CHOICES,default=STATUS_CHOICES[0][0]),
         description = models.TextField(_('Brief Description'),blank=True, null=True)
     )  # End of translatable fields
