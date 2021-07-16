@@ -4,16 +4,23 @@ Configuration settings for the iAHO data capture tool (DCT) developed for AFRO.
 from django.utils.translation import ugettext_lazy as _
 import os
 
+
+import os
+import dotenv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jz&%c@07o%z_mo&qs2t@-io)vm5ul_0j*kwm@#&m0m4nf7j5a^'
+# Add .env variables before assiging the values to the SECRET_KEY variable
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
+# SECRET_KEY = 'jz&%c@07o%z_mo&qs2t@-io)vm5ul_0j*kwm@#&m0m4nf7j5a^'
+SECRET_KEY = os.environ['SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','af-aho-datacapturetool.azurewebsites.net']
+ALLOWED_HOSTS = ['localhost','af-aho-datacapturetool-stagex.azurewebsites.net']
 
 
 # Application definition
@@ -124,7 +131,7 @@ WSGI_APPLICATION = 'aho_datacapturetool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aho_stage_database', #temporary
+        'NAME': 'aho_dev_database', #temporary
 		'HOST': 'localhost',
 		'USER': 'ahodbadmin',
 		'PASSWORD': 'Aho@1234',
@@ -182,6 +189,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+
+
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
@@ -190,11 +199,27 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'), # for UI language translation
 # Base url to serve media files
 
 # Set the diretory a path outside the project folder
-MEDIA_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../..")
-)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(MEDIA_DIR, 'repository') # directory where media is stored
+# MEDIA_DIR = os.path.abspath(
+#     os.path.join(os.path.dirname(__file__), "../..")
+# )
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(MEDIA_DIR, 'repository') # directory where media is stored
+
+
+# Configurations for serving and uploading media into Azure Blob storage container
+AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT']
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+DEFAULT_FILE_STORAGE = 'aho_datacapturetool.azurestorage.AzureMediaStorage'
+AZURE_BLOB_MAX_MEMORY_SIZE = os.environ['BLOB_MAX_MEMORY_SIZE']
+
+MEDIA_LOCATION='media' #This works well as the storage location
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+
+
+
+
+
+
 
 #display the AHO logo on the login screen and admin page
 ADMIN_LOGO = 'dashboard_logo.png'
