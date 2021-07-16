@@ -2,7 +2,7 @@ from .settings import *
 DEBUG = True # Will be moved to external variables in Phase 2
 # Configure production domain names
 ALLOWED_HOSTS = [os.environ['WEBSITE_SITE_NAME'] + '.azurewebsites.net','*',
-    'af-aho-datacapturetool-uat.azurewebsites.net',
+    'af-aho-datacapturetool-stagex.azurewebsites.net',
         'dct.aho.afro.who.int'] if 'WEBSITE_SITE_NAME' in os.environ else []
 
 # WhiteNoise configuration
@@ -20,8 +20,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+"""
+Use secure cookies for the session and crossite protection. An attacker could
+sniff and capture an unencrypted cookies with and hijack the user’s session.
+"""
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF= True
+SECURE_SSL_REDIRECT=False
+X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+SECURE_HSTS_PRELOAD=True
 
 # Configure Postgres database
 DATABASES = {

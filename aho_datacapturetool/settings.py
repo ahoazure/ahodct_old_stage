@@ -3,9 +3,6 @@ Configuration settings for the iAHO data capture tool (DCT) developed for AFRO.
 """
 from django.utils.translation import ugettext_lazy as _
 import os
-
-
-import os
 import dotenv
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -191,42 +188,26 @@ USE_TZ = True
 
 
 
-# # Static files (CSS, JavaScript, Images)
-# STATIC_URL = '/static/'
-
-LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'), # for UI language translations
+# LOCALE_PATHS is for UI language translations
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'), # 
 )
+
 
 AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT']
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
+#Configurations for serving static assets (CSS, JavaScript, Images)
 STATIC_LOCATION='static' #This works well as the static location
 STATICFILES_STORAGE  = 'aho_datacapturetool.azurestorage.AzureStaticStorage'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 
 
-
-# Base url to serve media files
-
-# Set the diretory a path outside the project folder
-# MEDIA_DIR = os.path.abspath(
-#     os.path.join(os.path.dirname(__file__), "../..")
-# )
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(MEDIA_DIR, 'repository') # directory where media is stored
-
-
-# Configurations for serving and uploading media into Azure Blob storage container
+# Configurations for serving and uploading files into Azure Blob storage
 DEFAULT_FILE_STORAGE = 'aho_datacapturetool.azurestorage.AzureMediaStorage'
 AZURE_BLOB_MAX_MEMORY_SIZE = os.environ['BLOB_MAX_MEMORY_SIZE']
 
 MEDIA_LOCATION='media' #This works well as the storage location
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
-
-
-
-
-
 
 
 #display the AHO logo on the login screen and admin page
