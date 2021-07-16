@@ -199,7 +199,8 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'), # for UI language translation
 
 AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT']
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-STATIC_LOCATION='staticstagex' #This works well as the static location
+
+STATIC_LOCATION='static' #This works well as the static location
 STATICFILES_STORAGE  = 'aho_datacapturetool.azurestorage.AzureStaticStorage'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 
